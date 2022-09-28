@@ -3,10 +3,15 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
+const passport = require('passport');
 const connectDB = require('./config/db');
 
 //Load config
 dotenv.config({ path: './config/config.env' });
+
+//Passport config
+require('./config/passport')(passport);
+
 connectDB();
 
 const app = express();
@@ -25,6 +30,10 @@ app.engine(
   })
 );
 app.set('view engine', '.hbs');
+
+//Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
