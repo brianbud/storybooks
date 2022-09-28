@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Routher();
+const router = express.Router();
 
 //@desc Login/Landing Pate
 //@route GET /
